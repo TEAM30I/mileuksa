@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PageLayout from '../../components/PageLayout';
-import { Bookmark, GraduationCap, Lotus } from 'lucide-react';
+import { Bookmark, GraduationCap, Flower } from 'lucide-react';
 
 const TempleMonks = () => {
   // Sample monks data
@@ -133,7 +133,7 @@ const TempleMonks = () => {
           {/* Daily Life */}
           <div className="mb-16 reveal">
             <h2 className="text-2xl font-semibold text-temple-brown mb-6 flex items-center">
-              <Lotus className="h-6 w-6 text-temple-red mr-2" />
+              <Flower className="h-6 w-6 text-temple-red mr-2" />
               스님들의 일과
             </h2>
             
