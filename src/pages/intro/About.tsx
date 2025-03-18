@@ -1,27 +1,30 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageLayout from '../../components/PageLayout';
 import { Building, TreeDeciduous, Bell } from 'lucide-react';
 
 const TempleAbout = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <PageLayout 
       title="미륵사 소개" 
-      subtitle="미륵사는 한국 불교의 정신을 계승하고 현대적으로 해석하는 사찰입니다."
+      subtitle="금정산 미륵사는 부산광역시 금정구 금정산에 위치한 사찰입니다."
     >
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-16 reveal">
             <div className="prose prose-lg max-w-none">
               <p className="text-xl font-medium text-temple-brown">
-                미륵사는 미래불인 미륵불을 모신 사찰로, 깨달음의 길을 함께 걷는 수행 공동체입니다.
+                금정산 미륵사는 부산광역시 금정구 금정산에 위치한 사찰로, 대한불교조계종 제14교구 범어사의 말사입니다.
               </p>
               
               <p>
-                미륵사는 산과 강이 어우러진 아름다운 자연 속에 자리하고 있으며, 
-                사시사철 자연의 변화를 느끼며 수행과 명상을 통해 내면의 평화를 찾을 수 있는 곳입니다. 
-                미륵사는 불교의 가르침을 현대적으로 해석하고 실천하며, 
-                누구나 쉽게 불교를 접하고 배울 수 있도록 다양한 프로그램을 운영하고 있습니다.
+                신라시대인 678년에 원효대사가 창건하였으며, 금정산에서 가장 높은 곳인 해발 약 700m에 자리하고 있습니다. 
+                사찰 뒤편에는 미륵봉이 병풍처럼 둘러싸고 있어 아름다운 자연 경관을 자랑합니다.
               </p>
             </div>
           </div>
@@ -35,8 +38,8 @@ const TempleAbout = () => {
                 <h3 className="text-lg font-semibold ml-3">미륵사 역사</h3>
               </div>
               <p className="text-gray-600">
-                미륵사는 1956년에 창건되어 60여 년의 역사를 이어오고 있으며, 
-                수많은 불자들의 신앙과 정성으로 현재의 모습을 갖추게 되었습니다.
+                미륵사는 원효대사가 '미륵 삼부경' 중 하나인 '상생경종오'를 집필한 곳으로 알려져 있으며, 
+                오랜 역사와 전통을 이어오고 있는 사찰입니다.
               </p>
             </div>
             
@@ -45,11 +48,11 @@ const TempleAbout = () => {
                 <div className="bg-temple-red/10 p-3 rounded-full">
                   <TreeDeciduous className="h-6 w-6 text-temple-red" />
                 </div>
-                <h3 className="text-lg font-semibold ml-3">수행과 명상</h3>
+                <h3 className="text-lg font-semibold ml-3">자연 환경</h3>
               </div>
               <p className="text-gray-600">
-                미륵사에서는 참선, 108배, 염불 등 다양한 수행법을 통해
-                마음의 평화를 찾고 부처님의 가르침을 실천하는 수행 프로그램을 운영합니다.
+                금정산의 해발 약 700m에 위치하여 부산 시내를 한눈에 내려다볼 수 있으며,
+                사찰 주변의 아름다운 자연 경관과 함께 평화로운 분위기를 느낄 수 있습니다.
               </p>
             </div>
             
@@ -58,11 +61,11 @@ const TempleAbout = () => {
                 <div className="bg-temple-red/10 p-3 rounded-full">
                   <Bell className="h-6 w-6 text-temple-red" />
                 </div>
-                <h3 className="text-lg font-semibold ml-3">불교 문화</h3>
+                <h3 className="text-lg font-semibold ml-3">신앙 생활</h3>
               </div>
               <p className="text-gray-600">
-                불교 문화 강좌, 템플스테이, 명상 워크숍 등 다양한 문화 프로그램을 통해
-                불교 문화를 체험하고 배울 수 있는 기회를 제공합니다.
+                미륵사에서는 정기적인 법회와 기도 행사가 열리며,
+                다양한 불교 수행과 신앙 활동을 통해 부처님의 가르침을 실천하고 있습니다.
               </p>
             </div>
           </div>
@@ -85,32 +88,29 @@ const TempleAbout = () => {
                 미륵사는 미륵불의 자비와 지혜를 바탕으로 모든 사람들이 평화롭고 행복한 삶을 살 수 있도록 기도하고 실천합니다.
               </p>
               <p className="text-gray-600">
-                미륵사의 대웅전은 현대적인 건축 양식과 전통적인 사찰 건축이 조화를 이룬 아름다운 건물로, 
-                불교의 전통과 현대의 조화를 추구하는 미륵사의 정신을 상징합니다.
+                사찰 뒤편의 바위는 스님이 좌선하는 모습과 닮아 '좌선바위'로 불리며, 
+                이 바위에는 코끼리 형상의 바위가 7개 있어 마음이 맑아야 모두 볼 수 있다는 전설이 전해집니다.
               </p>
             </div>
           </div>
           
           <div className="bg-temple-beige/20 rounded-xl p-8 reveal">
             <h3 className="text-xl font-semibold text-temple-brown mb-4">
-              미륵사의 미션과 비전
+              주요 전각 및 시설
             </h3>
             <div className="space-y-4 text-gray-600">
               <p>
-                미륵사는 불교의 가르침을 현대적으로 해석하고 실천하여, 모든 사람들이 행복하고 평화로운 삶을 살 수 있도록 돕는 것을 목표로 합니다.
+                미륵사의 주요 전각 및 시설에 대해 알아보세요:
               </p>
               <ul className="list-disc pl-5 space-y-2">
                 <li>
-                  <strong className="text-temple-brown">수행과 명상:</strong> 다양한 수행법을 통해 마음의 평화를 찾고 지혜를 키웁니다.
+                  <strong className="text-temple-brown">염화전(拈華殿):</strong> 미륵사의 주 법당으로, 다포계 팔작지붕의 건물입니다. 내부에는 석가모니불과 문수보살, 보현보살이 모셔져 있습니다.
                 </li>
                 <li>
-                  <strong className="text-temple-brown">교육과 문화:</strong> 불교 교육과 문화 프로그램을 통해 불교의 가르침을 널리 알립니다.
+                  <strong className="text-temple-brown">독성각:</strong> 미륵전 옆 오르막길에 위치하며, 나반존자를 모신 전각입니다. 이곳에는 원효대사가 손톱으로 그렸다는 마애 미륵불이 있었다는 전설이 있습니다.
                 </li>
                 <li>
-                  <strong className="text-temple-brown">자비 실천:</strong> 사회 봉사와 자선 활동을 통해 자비를 실천합니다.
-                </li>
-                <li>
-                  <strong className="text-temple-brown">공동체 형성:</strong> 함께 수행하고 배우는 불자 공동체를 형성합니다.
+                  <strong className="text-temple-brown">칠성각:</strong> 염화전과 도솔선원 사이의 산길로 가면 위치하며, 이곳에서 바라보는 금정산과 수영만의 경관이 아름답습니다.
                 </li>
               </ul>
             </div>

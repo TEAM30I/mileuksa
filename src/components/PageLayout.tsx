@@ -18,8 +18,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Animation on scroll
+  // Scroll to top when component mounts
   useEffect(() => {
+    window.scrollTo(0, 0);
+    
+    // Animation on scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

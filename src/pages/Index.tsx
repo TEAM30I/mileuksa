@@ -14,12 +14,17 @@ import { WeeklyEventsList } from '../components/WeeklyEventsList';
 const Index = () => {
   const [showDonationPopup, setShowDonationPopup] = useState(false);
   const [showEventsPopup, setShowEventsPopup] = useState(false);
+  const [donationPopupClosed, setDonationPopupClosed] = useState(false);
   
   useEffect(() => {
-    // Show donation popup after 2 seconds
-    const donationTimer = setTimeout(() => {
-      setShowDonationPopup(true);
-    }, 2000);
+    // Show donation popup after 2 seconds if not manually closed
+    if (!donationPopupClosed) {
+      const donationTimer = setTimeout(() => {
+        setShowDonationPopup(true);
+      }, 2000);
+      
+      return () => clearTimeout(donationTimer);
+    }
     
     // Show events popup after 5 seconds if donation popup is closed
     const eventsTimer = setTimeout(() => {
@@ -49,10 +54,14 @@ const Index = () => {
     
     return () => {
       window.removeEventListener('scroll', revealOnScroll);
-      clearTimeout(donationTimer);
       clearTimeout(eventsTimer);
     };
-  }, [showDonationPopup]);
+  }, [showDonationPopup, donationPopupClosed]);
+
+  const handleDonationPopupClose = () => {
+    setShowDonationPopup(false);
+    setDonationPopupClosed(true); // Mark as manually closed
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -62,10 +71,7 @@ const Index = () => {
       {/* Main Content */}
       <main>
         {/* Hero/Intro Section */}
-        <div className="relative">
-          <IntroSection />
-          <WeeklyEventsList className="absolute right-0 top-1/2 transform -translate-y-1/2 mr-4 md:mr-8 z-10 hidden md:block" />
-        </div>
+        <IntroSection />
         
         {/* Temple Info Section (with gallery and monk info) */}
         <TempleInfoSection />
@@ -86,9 +92,10 @@ const Index = () => {
       {/* Popups */}
       <DonationPopup 
         open={showDonationPopup} 
-        onOpenChange={setShowDonationPopup}
+        onOpenChange={handleDonationPopupClose}
         onViewEvents={() => {
           setShowDonationPopup(false);
+          setDonationPopupClosed(true);
           setShowEventsPopup(true);
         }}
       />

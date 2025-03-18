@@ -1,10 +1,15 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Heart, CreditCard, Wallet, HandCoins } from 'lucide-react';
 
 const Donation = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -24,115 +29,84 @@ const Donation = () => {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 reveal">
-                  <div className="flex items-center mb-4">
-                    <div className="bg-temple-red/10 p-3 rounded-full">
-                      <Heart className="h-6 w-6 text-temple-red" />
-                    </div>
-                    <h3 className="text-xl font-semibold ml-4">미륵사 발전기금</h3>
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 reveal">
+                <div className="flex items-center mb-4">
+                  <div className="bg-temple-red/10 p-3 rounded-full">
+                    <Heart className="h-6 w-6 text-temple-red" />
                   </div>
-                  <p className="text-gray-600 mb-6">
-                    미륵사의 법당 증축과 복지관 확장, 법회와 불교문화 발전을 위한 불사에 동참해주세요.
-                    여러분의 정성은 미륵사의 발전과 불교 문화의 계승에 소중히 쓰여집니다.
-                  </p>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-medium text-temple-brown mb-2">시주 계좌 안내</h4>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">은행명</span>
-                        <span className="font-medium">농협</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">계좌번호</span>
-                        <span className="font-medium">123-456-7890</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">예금주</span>
-                        <span className="font-medium">미륵사</span>
-                      </div>
-                    </div>
-                  </div>
+                  <h3 className="text-xl font-semibold ml-4">산신각 칠성각 대탱화불사묘연</h3>
                 </div>
-                
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 reveal reveal-delay-1">
-                  <div className="flex items-center mb-4">
-                    <div className="bg-temple-red/10 p-3 rounded-full">
-                      <HandCoins className="h-6 w-6 text-temple-red" />
-                    </div>
-                    <h3 className="text-xl font-semibold ml-4">자비실천 기금</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-temple-beige/10 rounded-lg">
+                    <span className="font-medium">산신각 칠성각 설판시주</span>
+                    <span className="text-temple-red font-medium">100만원</span>
                   </div>
-                  <p className="text-gray-600 mb-6">
-                    미륵사에서는 불우이웃돕기, 장학사업, 사회복지시설 지원 등 다양한 자비실천 활동을 
-                    진행하고 있습니다. 자비와 사랑을 실천하는 불사에 동참해주세요.
-                  </p>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-medium text-temple-brown mb-2">시주 계좌 안내</h4>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">은행명</span>
-                        <span className="font-medium">신한은행</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">계좌번호</span>
-                        <span className="font-medium">987-654-3210</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">예금주</span>
-                        <span className="font-medium">미륵사 자비실천회</span>
-                      </div>
-                    </div>
+                  <div className="flex justify-between items-center p-3 bg-temple-beige/10 rounded-lg">
+                    <span className="font-medium">산신각 칠성각 개인시주</span>
+                    <span className="text-temple-red font-medium">10만원</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 bg-temple-beige/10 rounded-lg">
+                    <span className="font-medium">산신각 칠성각 가족시주</span>
+                    <span className="text-temple-red font-medium">30만원 (가족4명까지)</span>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-temple-beige/20 rounded-xl p-6 md:p-8 mb-12 reveal">
-                <h3 className="text-xl font-semibold text-temple-brown mb-4">불사 동참 안내</h3>
-                <div className="space-y-4 text-gray-600">
-                  <p>
-                    미륵사 불사에 동참하시면 다음과 같은 공덕을 쌓으실 수 있습니다:
-                  </p>
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>불사 동참자는 미륵사에서 봉행하는 모든 정기법회에 동참하실 수 있습니다.</li>
-                    <li>동참자 명단은 미륵사 원불에 모셔지며, 매월 정기적으로 공덕회향 기도를 올립니다.</li>
-                    <li>미륵사에서 발간하는 간행물을 받아보실 수 있습니다.</li>
-                    <li>연말 기부금 영수증을 발급받으실 수 있습니다.</li>
-                  </ul>
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 reveal">
+                <div className="flex items-center mb-4">
+                  <div className="bg-temple-red/10 p-3 rounded-full">
+                    <Wallet className="h-6 w-6 text-temple-red" />
+                  </div>
+                  <h3 className="text-xl font-semibold ml-4">계좌 안내</h3>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-medium text-temple-brown mb-2">시주 계좌 안내</h4>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">금융기관</span>
+                      <span className="font-medium">우체국</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">계좌번호</span>
+                      <span className="font-medium">502724  02  030671</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-500">예금주</span>
+                      <span className="font-medium">미륵사</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center reveal">
                   <div className="bg-temple-red/10 p-4 rounded-full mx-auto w-16 h-16 flex items-center justify-center mb-4">
-                    <CreditCard className="h-8 w-8 text-temple-red" />
+                    <Heart className="h-8 w-8 text-temple-red" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">카드 시주</h3>
+                  <h3 className="text-lg font-semibold mb-2">동참 안내</h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    신용카드, 체크카드를 통해 온라인으로 시주하실 수 있습니다.
+                    불사에 동참하시면 법당 내에 이름을 올려 천도를 올려드립니다.
                   </p>
-                  <button className="text-temple-red hover:text-temple-brown text-sm">자세히 보기</button>
                 </div>
                 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center reveal reveal-delay-1">
                   <div className="bg-temple-red/10 p-4 rounded-full mx-auto w-16 h-16 flex items-center justify-center mb-4">
-                    <Wallet className="h-8 w-8 text-temple-red" />
+                    <CreditCard className="h-8 w-8 text-temple-red" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">정기 시주</h3>
+                  <h3 className="text-lg font-semibold mb-2">현장 접수</h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    매월 일정 금액을 자동이체로 정기적으로 시주하실 수 있습니다.
+                    미륵사를 방문하시어 현장에서 직접 접수하실 수 있습니다.
                   </p>
-                  <button className="text-temple-red hover:text-temple-brown text-sm">자세히 보기</button>
                 </div>
                 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center reveal reveal-delay-2">
                   <div className="bg-temple-red/10 p-4 rounded-full mx-auto w-16 h-16 flex items-center justify-center mb-4">
-                    <Heart className="h-8 w-8 text-temple-red" />
+                    <HandCoins className="h-8 w-8 text-temple-red" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">물품 시주</h3>
+                  <h3 className="text-lg font-semibold mb-2">문의 안내</h3>
                   <p className="text-sm text-gray-600 mb-4">
-                    쌀, 과일, 공양물 등의 물품을 직접 방문하여 시주하실 수 있습니다.
+                    추가 문의사항은 미륵사로 연락 주시기 바랍니다.
                   </p>
-                  <button className="text-temple-red hover:text-temple-brown text-sm">자세히 보기</button>
                 </div>
               </div>
             </div>

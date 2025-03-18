@@ -88,6 +88,10 @@ const Navbar = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    
+    // Scroll to top on component mount (page load)
+    window.scrollTo(0, 0);
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -139,12 +143,14 @@ const Navbar = () => {
                       <ul className="grid gap-3 p-4 w-[220px]">
                         {item.subMenu.map((subItem) => (
                           <li key={subItem.path}>
-                            <Link 
-                              to={subItem.path}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                            >
-                              <div className="text-sm font-medium leading-none">{subItem.label}</div>
-                            </Link>
+                            <NavigationMenuLink asChild>
+                              <Link 
+                                to={subItem.path}
+                                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                              >
+                                <div className="text-sm font-medium leading-none">{subItem.label}</div>
+                              </Link>
+                            </NavigationMenuLink>
                           </li>
                         ))}
                       </ul>
@@ -152,8 +158,9 @@ const Navbar = () => {
                   </NavigationMenuItem>
                 ) : (
                   <NavigationMenuItem key={item.id}>
-                    <Link to={item.path}>
-                      <NavigationMenuLink 
+                    <NavigationMenuLink asChild>
+                      <Link 
+                        to={item.path}
                         className={cn(
                           "px-1 py-2 transition-colors duration-300 cursor-pointer",
                           activeSection === item.id 
@@ -162,8 +169,8 @@ const Navbar = () => {
                         )}
                       >
                         {item.label}
-                      </NavigationMenuLink>
-                    </Link>
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 )
               ))}

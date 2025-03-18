@@ -1,204 +1,124 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import PageLayout from '../components/PageLayout';
-import { MapPin, Bus, Car, Phone, Clock } from 'lucide-react';
+import { MapPin, Bus, Car, Clock } from 'lucide-react';
 
 const Location = () => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  
+  // Scroll to top when component mounts
   useEffect(() => {
-    // Add Kakao Maps script - This is just a placeholder
-    // In a real app, you would use proper Kakao Maps integration or Google Maps
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_MAPS_API_KEY&autoload=false";
-    document.head.appendChild(script);
-    
-    script.onload = () => {
-      // Initialize map when script is loaded
-      // This is just a placeholder for demonstration purposes
-      if (mapRef.current) {
-        // In reality, you would have code here to initialize the map
-        mapRef.current.innerHTML = `
-          <div class="bg-gray-200 w-full h-full flex items-center justify-center text-gray-500">
-            <div class="text-center">
-              <MapPin class="w-12 h-12 mx-auto mb-2" />
-              <p>지도가 여기에 표시됩니다</p>
-              <p class="text-sm">(Kakao Maps 또는 Google Maps API 키 필요)</p>
-            </div>
-          </div>
-        `;
-      }
-    };
-    
-    return () => {
-      // Clean up
-      document.head.removeChild(script);
-    };
+    window.scrollTo(0, 0);
   }, []);
   
   return (
     <PageLayout 
       title="찾아오시는 길" 
-      subtitle="미륵사를 방문하시는 모든 분들을 환영합니다."
+      subtitle="금정산 미륵사를 방문하는 방법을 안내합니다."
+      backgroundImage="/temple-bg.jpg"
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            <div className="rounded-xl overflow-hidden shadow-lg h-[500px] reveal">
-              <div ref={mapRef} className="w-full h-full bg-gray-100">
-                {/* Map will be loaded here */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-12 reveal">
+            <div className="prose max-w-none">
+              <p className="text-xl font-medium text-temple-brown mb-6">
+                금정산 미륵사는 부산광역시 금정구 금정산에 위치해 있습니다.
+              </p>
+              <p className="text-gray-600">
+                신라시대인 678년에 원효대사가 창건하였으며, 금정산에서 가장 높은 곳인 해발 약 700m에 자리하고 있습니다. 
+                아래의 안내를 참고하여 미륵사를 방문해 주세요.
+              </p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div className="order-2 md:order-1 reveal reveal-delay-1">
+              <div className="bg-white rounded-xl shadow-sm overflow-hidden h-full">
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-temple-brown mb-4 flex items-center">
+                    <MapPin className="mr-2 h-5 w-5 text-temple-red" />
+                    주소 안내
+                  </h3>
+                  <p className="text-gray-700 mb-4">
+                    부산광역시 금정구 금정산로 (상세주소) 미륵사
+                  </p>
+                  
+                  <h4 className="font-medium text-temple-brown mt-6 mb-2 flex items-center">
+                    <Bus className="mr-2 h-4 w-4 text-temple-red" />
+                    대중교통 이용
+                  </h4>
+                  <div className="text-gray-600 space-y-2">
+                    <p>
+                      부산 지하철 1호선 온천장역 맞은편 홈플러스 앞 버스정류장에서 203번 직행버스를 타고 종점인 죽전마을에서 하차한 후, 등산로를 따라 약 1시간에서 1시간 30분 정도 산행하면 미륵사에 도착할 수 있습니다.
+                    </p>
+                  </div>
+                  
+                  <h4 className="font-medium text-temple-brown mt-6 mb-2 flex items-center">
+                    <Clock className="mr-2 h-4 w-4 text-temple-red" />
+                    등산로 이용
+                  </h4>
+                  <div className="text-gray-600 space-y-2">
+                    <p>
+                      금정산성 북문에서 남쪽으로 약 15분 정도 산행하면 미륵사에 도착할 수 있습니다.
+                    </p>
+                  </div>
+                  
+                  <h4 className="font-medium text-temple-brown mt-6 mb-2 flex items-center">
+                    <Car className="mr-2 h-4 w-4 text-temple-red" />
+                    차량 이용
+                  </h4>
+                  <div className="text-gray-600 space-y-2">
+                    <p>
+                      산성마을까지 차량으로 오신 후, 금성초교 앞에서 미륵사 차량 운행을 이용하세요.
+                    </p>
+                    <p>매일 오전 9시에 금성초교 앞에서 차량이 운행됩니다.</p>
+                  </div>
+                </div>
               </div>
             </div>
             
-            <div className="reveal reveal-delay-1">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-full">
-                <h3 className="text-xl font-semibold text-temple-brown mb-6 flex items-center">
-                  <MapPin className="mr-2 h-5 w-5 text-temple-red" />
-                  미륵사 위치
-                </h3>
-                
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-medium text-gray-700 mb-2">주소</h4>
-                    <p className="text-gray-600">
-                      서울특별시 강남구 테헤란로 123<br />
-                      미륵사 (우: 06123)
-                    </p>
+            <div className="order-1 md:order-2 reveal">
+              <div className="bg-gray-100 rounded-xl h-full flex items-center justify-center p-4">
+                <div className="w-full">
+                  <div className="aspect-w-16 aspect-h-12 w-full">
+                    {/* Map placeholder - replace with actual map */}
+                    <img 
+                      src="/placeholder.svg" 
+                      alt="미륵사 위치" 
+                      className="w-full h-full object-cover rounded-lg"
+                    />
                   </div>
-                  
-                  <div>
-                    <h4 className="font-medium text-gray-700 mb-2 flex items-center">
-                      <Phone className="mr-2 h-4 w-4 text-temple-red" />
-                      연락처
-                    </h4>
-                    <p className="text-gray-600">
-                      전화: 02-123-4567<br />
-                      팩스: 02-123-4568<br />
-                      이메일: info@mireuksa.org
-                    </p>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-medium text-gray-700 mb-2 flex items-center">
-                      <Clock className="mr-2 h-4 w-4 text-temple-red" />
-                      운영시간
-                    </h4>
-                    <div className="space-y-1 text-gray-600">
-                      <div className="flex justify-between">
-                        <span>일반 참배 시간</span>
-                        <span>06:00 - 18:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>사무실 운영 시간</span>
-                        <span>09:00 - 17:00</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>템플스테이 체크인</span>
-                        <span>14:00 - 16:00</span>
-                      </div>
-                      <p className="text-sm text-gray-500 mt-2">
-                        * 명절 및 특별법회 기간에는 운영시간이 변경될 수 있습니다.
-                      </p>
-                    </div>
-                  </div>
+                  <p className="text-sm text-gray-500 mt-2 text-center">
+                    * 실제 지도로 변경될 예정입니다.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 reveal">
-              <h3 className="text-xl font-semibold text-temple-brown mb-4 flex items-center">
-                <Bus className="mr-2 h-5 w-5 text-temple-red" />
-                대중교통 이용 안내
-              </h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-gray-700 mb-2">지하철</h4>
-                  <ul className="space-y-2 text-gray-600">
-                    <li className="flex items-start">
-                      <span className="bg-temple-red/10 text-temple-red px-2 py-1 rounded text-xs font-medium mr-2 mt-0.5">2호선</span>
-                      <span>강남역 3번 출구에서 도보 10분</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-temple-red/10 text-temple-red px-2 py-1 rounded text-xs font-medium mr-2 mt-0.5">9호선</span>
-                      <span>신논현역 5번 출구에서 도보 5분</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-gray-700 mb-2">버스</h4>
-                  <ul className="space-y-2 text-gray-600">
-                    <li className="flex items-start">
-                      <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded text-xs font-medium mr-2 mt-0.5">간선</span>
-                      <span>140, 144, 145, 146번 버스 미륵사 입구 하차</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-green-100 text-green-600 px-2 py-1 rounded text-xs font-medium mr-2 mt-0.5">지선</span>
-                      <span>3412, 4412번 버스 미륵사 정문 하차</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 reveal reveal-delay-1">
-              <h3 className="text-xl font-semibold text-temple-brown mb-4 flex items-center">
-                <Car className="mr-2 h-5 w-5 text-temple-red" />
-                주차 안내
-              </h3>
-              
-              <div className="space-y-4 text-gray-600">
-                <p>
-                  미륵사는 방문객을 위한 무료 주차장을 운영하고 있습니다. 주말 및 법회일에는 주차장이 혼잡할 수 있으니 가급적 대중교통 이용을 권장합니다.
-                </p>
-                
-                <div>
-                  <h4 className="font-medium text-gray-700 mb-2">주차장 정보</h4>
-                  <ul className="space-y-2">
-                    <li className="flex justify-between">
-                      <span>운영시간</span>
-                      <span>05:30 - 21:00</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span>주차요금</span>
-                      <span>무료 (사찰 방문객 한정)</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span>주차가능대수</span>
-                      <span>약 50대</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div className="bg-temple-beige/20 p-3 rounded-lg text-sm">
-                  <p className="text-temple-brown font-medium mb-1">주차 유의사항</p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>법회 및 행사 시에는 주차공간이 부족할 수 있습니다.</li>
-                    <li>방문증을 차량 내부에 비치해 주세요. (사무실에서 수령)</li>
-                    <li>장시간 주차 시 사무실에 주차 사유를 알려주세요.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-temple-beige/10 rounded-xl p-6 md:p-8 reveal">
-            <h3 className="text-xl font-semibold text-temple-brown mb-4">방문 안내</h3>
+          <div className="bg-temple-beige/20 rounded-xl p-6 md:p-8 reveal">
+            <h3 className="text-xl font-semibold text-temple-brown mb-4">
+              셔틀버스 안내
+            </h3>
             <div className="space-y-4 text-gray-600">
               <p>
-                미륵사를 방문하시는 모든 분들께 몇 가지 안내 말씀 드립니다:
+                미륵사는 신도들의 편의를 위해 셔틀버스 서비스를 제공하고 있습니다:
               </p>
               <ul className="list-disc pl-5 space-y-2">
-                <li>사찰 내에서는 정숙하고 조용한 분위기를 유지해 주세요.</li>
-                <li>법당에 입장 시 신발을 벗고 들어가시기 바랍니다.</li>
-                <li>참배 및 기도는 안내에 따라 진행해 주시기 바랍니다.</li>
-                <li>음식물은 지정된 장소에서만 드시기 바랍니다.</li>
-                <li>사진 촬영은 허용된 장소에서만 가능합니다. (법당 내부 촬영 금지)</li>
-                <li>단체 방문 시 사전에 미륵사 사무실로 연락주시기 바랍니다.</li>
+                <li>
+                  <strong className="text-temple-brown">초하루 기도법회, 독성 기도법회, 백중영가천도 셔틀버스:</strong>
+                  <ul className="list-none pl-4 mt-1 space-y-1">
+                    <li>온천장 지하철역 1번 출구에서 08:30 출발</li>
+                    <li>화명역 2번 출구에서 08:40 출발</li>
+                    <li>산성마을 금성초교 앞 9:00 출발</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong className="text-temple-brown">일반 셔틀버스:</strong>
+                  <ul className="list-none pl-4 mt-1">
+                    <li>매일 오전 9시 산성마을 금성초교 앞에서 출발</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong className="text-temple-brown">특별 행사 시:</strong> 행사에 따라 추가 셔틀버스가 운행될 수 있으니 행사 공지를 확인해 주세요.
+                </li>
               </ul>
             </div>
           </div>
