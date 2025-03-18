@@ -52,6 +52,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('intro');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -95,6 +96,15 @@ const Navbar = () => {
     }
   };
 
+  // Show all submenus at once when hovering over navbar
+  const handleNavHover = () => {
+    setHoveredMenu('all');
+  };
+
+  const handleNavLeave = () => {
+    setHoveredMenu(null);
+  };
+
   return (
     <header className={cn(
       "fixed top-0 w-full z-50 transition-all duration-500",
@@ -115,7 +125,11 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-4">
+        <nav 
+          className="hidden md:flex items-center space-x-4"
+          onMouseEnter={handleNavHover}
+          onMouseLeave={handleNavLeave}
+        >
           <ul className="flex space-x-2">
             {navStructure.map((item) => (
               <li key={item.id} className="group relative">
@@ -140,8 +154,8 @@ const Navbar = () => {
                   </div>
                 )}
                 
-                {item.subMenu && (
-                  <div className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-300 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+                {item.subMenu && (hoveredMenu === 'all') && (
+                  <div className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-300 opacity-100 visible">
                     <ul>
                       {item.subMenu.map((subItem) => (
                         <li key={subItem.path}>

@@ -30,10 +30,7 @@ export function DonationPopup({ open, onOpenChange, onViewEvents }: DonationPopu
           <DialogDescription>
             미륵사 불사와 자비행에 동참해 주세요
           </DialogDescription>
-          <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </DialogClose>
+          {/* We're removing the duplicate DialogClose button here, as DialogContent already includes one */}
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="bg-temple-beige/20 p-4 rounded-lg">
