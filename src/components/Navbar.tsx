@@ -1,10 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 
-// Top-level navigation structure
 const navStructure = [
   { 
     id: 'intro', 
@@ -52,28 +50,25 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('intro');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // hoveredMenu에는 현재 드롭다운으로 보여줄 메뉴의 id가 들어갑니다.
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      // Update navbar style on scroll
       if (window.scrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
 
-      // Detect which section is in view for active state
       const sections = ['intro', 'events', 'location', 'faq'].map(id => document.getElementById(id));
       const scrollPosition = window.scrollY + 200;
 
       sections.forEach((section) => {
         if (!section) return;
-        
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           setActiveSection(section.id);
         }
@@ -81,10 +76,8 @@ const Navbar = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
-    // Scroll to top on location change
+    // 페이지 이동 시 스크롤 최상단으로 이동
     window.scrollTo(0, 0);
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
@@ -96,29 +89,15 @@ const Navbar = () => {
     }
   };
 
-  // Show all submenus at once when hovering over navbar
-  const handleNavHover = () => {
-    setHoveredMenu('all');
-  };
-
-  const handleNavLeave = () => {
-    setHoveredMenu(null);
-  };
-
   return (
     <header className={cn(
       "fixed top-0 w-full z-50 transition-all duration-500",
-      scrolled 
-        ? "bg-white shadow-md py-2" 
-        : "bg-white py-4"
+      scrolled ? "bg-white shadow-md py-2" : "bg-white py-4"
     )}>
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
         <div 
-          className={cn(
-            "font-serif text-2xl md:text-3xl font-bold transition-all duration-500 cursor-pointer",
-            "text-temple-red"
-          )}
+          className={cn("font-serif text-2xl md:text-3xl font-bold transition-all duration-500 cursor-pointer", "text-temple-red")}
           onClick={() => window.location.href = '/'}
         >
           미륵사
@@ -127,12 +106,15 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <nav 
           className="hidden md:flex items-center space-x-4"
-          onMouseEnter={handleNavHover}
-          onMouseLeave={handleNavLeave}
+          onMouseLeave={() => setHoveredMenu(null)}
         >
           <ul className="flex space-x-2">
             {navStructure.map((item) => (
-              <li key={item.id} className="group relative">
+              <li 
+                key={item.id} 
+                className="group relative"
+                onMouseEnter={() => item.subMenu && setHoveredMenu(item.id)}
+              >
                 {item.path ? (
                   <Link 
                     to={item.path}
@@ -153,23 +135,6 @@ const Navbar = () => {
                     {item.label}
                   </div>
                 )}
-                
-                {item.subMenu && (hoveredMenu === 'all') && (
-                  <div className="absolute top-full left-0 w-48 bg-white shadow-lg rounded-b-lg overflow-hidden transition-all duration-300 opacity-100 visible">
-                    <ul>
-                      {item.subMenu.map((subItem) => (
-                        <li key={subItem.path}>
-                          <Link 
-                            to={subItem.path}
-                            className="block px-4 py-2 text-temple-dark hover:bg-temple-beige/20 hover:text-temple-red transition-colors"
-                          >
-                            {subItem.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
               </li>
             ))}
           </ul>
@@ -187,6 +152,48 @@ const Navbar = () => {
           )}
         </button>
       </div>
+
+      {/* 통합 드롭다운(데스크탑) */}
+      {hoveredMenu && (
+        <div 
+          className="absolute top-full left-0 w-full bg-white shadow-lg border-t border-temple-beige animate-slide-up"
+          onMouseLeave={() => setHoveredMenu(null)}
+        >
+          <div className="container mx-auto px-4 py-2">
+            {/* 탭 헤더 */}
+            <ul className="flex space-x-4 border-b pb-2">
+              {navStructure.filter(item => item.subMenu).map(item => (
+                <li 
+                  key={item.id} 
+                  className={cn(
+                    "cursor-pointer px-3 py-2 transition-colors duration-300",
+                    hoveredMenu === item.id ? "text-temple-red border-b-2 border-temple-red" : "text-temple-dark hover:text-temple-red"
+                  )}
+                  onMouseEnter={() => setHoveredMenu(item.id)}
+                >
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+            {/* 현재 탭에 해당하는 서브메뉴 */}
+            <div className="mt-2">
+              <ul className="grid grid-cols-2 gap-4">
+                {navStructure.find(item => item.id === hoveredMenu)?.subMenu.map(subItem => (
+                  <li key={subItem.path}>
+                    <Link 
+                      to={subItem.path}
+                      className="block px-4 py-2 text-temple-dark hover:bg-temple-beige/20 hover:text-temple-red transition-colors"
+                      onClick={() => setHoveredMenu(null)}
+                    >
+                      {subItem.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
@@ -220,6 +227,7 @@ const Navbar = () => {
                         key={subItem.path}
                         to={subItem.path}
                         className="block py-1.5 text-sm text-gray-600 hover:text-temple-red"
+                        onClick={() => setMobileMenuOpen(false)}
                       >
                         {subItem.label}
                       </Link>
