@@ -28,7 +28,7 @@ const Index = () => {
     
     // Show events popup after 5 seconds if donation popup is closed
     const eventsTimer = setTimeout(() => {
-      if (!showDonationPopup) {
+      if (!showDonationPopup && !donationPopupClosed) {
         setShowEventsPopup(true);
       }
     }, 5000);

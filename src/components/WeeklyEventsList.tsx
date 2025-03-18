@@ -34,8 +34,7 @@ const weeklyEvents = [
     id: 4,
     title: "봄방생 및 삼사순례",
     date: new Date(2023, 2, 23), // 3월 23일(일)
-    note: "",
-    location: "포항오어사, 보경사,감포(대관음사)",
+    location: "포항오어사, 보경사, 감포(대관음사)",
     fee: "참가비: 5만원(중무소문의)"
   },
   {

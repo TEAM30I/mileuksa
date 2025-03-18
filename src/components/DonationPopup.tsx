@@ -7,9 +7,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogClose
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Heart, Calendar } from "lucide-react";
+import { Heart, Calendar, X } from "lucide-react";
 
 interface DonationPopupProps {
   open: boolean;
@@ -29,13 +30,28 @@ export function DonationPopup({ open, onOpenChange, onViewEvents }: DonationPopu
           <DialogDescription>
             미륵사 불사와 자비행에 동참해 주세요
           </DialogDescription>
+          <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="bg-temple-beige/20 p-4 rounded-lg">
-            <h4 className="font-medium text-temple-brown mb-2">미륵사 발전을 위한 시주 안내</h4>
-            <p className="text-sm text-gray-600">
-              미륵사의 법당 증축과, 복지관 확장, 법회와 불교문화 발전을 위한 불사에 동참하여 공덕을 쌓으시길 바랍니다.
-            </p>
+            <h4 className="font-medium text-temple-brown mb-2">산신각 칠성각 대탱화불사묘연</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>산신각 칠성각 설판시주</span>
+                <span className="font-medium text-temple-red">100만원</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>산신각 칠성각 개인시주</span>
+                <span className="font-medium text-temple-red">10만원</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>산신각 칠성각 가족시주</span>
+                <span className="font-medium text-temple-red">30만원 (가족4명까지)</span>
+              </div>
+            </div>
           </div>
           
           <div className="bg-white border border-gray-200 rounded-lg p-4">
@@ -43,11 +59,11 @@ export function DonationPopup({ open, onOpenChange, onViewEvents }: DonationPopu
             <div className="text-sm space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-500">은행명</span>
-                <span className="font-medium">농협</span>
+                <span className="font-medium">우체국</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">계좌번호</span>
-                <span className="font-medium">123-456-7890</span>
+                <span className="font-medium">502724 02 030671</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">예금주</span>

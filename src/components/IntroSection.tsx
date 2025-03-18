@@ -65,8 +65,8 @@ const IntroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20 text-center text-white">
-        <div className="flex flex-col md:flex-row items-center justify-between">
+      <div className="relative z-10 container mx-auto px-4 py-20 text-white">
+        <div className="flex flex-col md:flex-row items-start justify-between">
           {/* Left side - Temple info */}
           <div className="w-full md:w-1/2 md:pr-8 text-left mb-8 md:mb-0">
             <div 
@@ -106,30 +106,8 @@ const IntroSection = () => {
           
           {/* Right side - Weekly events */}
           <div className="w-full md:w-2/5">
-            <WeeklyEventsList className="relative md:absolute md:right-0 md:top-1/2 md:transform md:-translate-y-1/2 w-full" />
-          </div>
-        </div>
-
-        {/* Recent Notice */}
-        <div 
-          ref={el => elementsRef.current[4] = el}
-          className="reveal reveal-delay-3 mt-16"
-        >
-          <div className="glass p-4 md:p-6 rounded-xl max-w-2xl mx-auto">
-            <h3 className="font-semibold text-lg mb-3">최근 공지사항</h3>
-            <div className="space-y-2 text-left">
-              <div className="flex gap-4 pb-2 border-b border-white/10">
-                <span className="text-temple-beige/70 text-sm">2023.06.15</span>
-                <p className="flex-1">여름 템플스테이 참가자 모집 안내</p>
-              </div>
-              <div className="flex gap-4 pb-2 border-b border-white/10">
-                <span className="text-temple-beige/70 text-sm">2023.06.10</span>
-                <p className="flex-1">7월 초하루 법회 일정</p>
-              </div>
-              <div className="flex gap-4">
-                <span className="text-temple-beige/70 text-sm">2023.06.05</span>
-                <p className="flex-1">미륵사지 유물전시관 임시 휴관 안내</p>
-              </div>
+            <div ref={el => elementsRef.current[3] = el} className="reveal reveal-delay-2">
+              <WeeklyEventsList className="w-full rounded-lg shadow-xl" />
             </div>
           </div>
         </div>
