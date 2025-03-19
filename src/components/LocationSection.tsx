@@ -1,40 +1,42 @@
-
 import React, { useEffect, useRef } from 'react';
 import { MapPin, Bus, Car, Clock, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Location information
+// Location information (부산광역시 금정구 기준)
 const locationData = {
-  address: "전라북도 익산시 금마면 미륵사지로 362",
+  address: "부산광역시 금정구 장전동 123-45",
   publicTransport: [
     {
       type: "버스",
-      routes: ["익산시내버스 41, 60, 70번", "금마 시외버스 터미널에서 도보 15분"]
+      routes: [
+        "금정구청 → 금정역 방향 101번, 120번",
+        "금정구청 하차 후 도보 5분"
+      ]
     },
     {
-      type: "기차",
-      routes: ["익산역에서 택시로 20분 거리 (약 15km)", "익산역에서 41번 버스 이용 가능"]
+      type: "지하철",
+      routes: [
+        "동래역 하차 후 버스 101번 환승 (약 20분 소요)"
+      ]
     }
   ],
   parking: {
     available: true,
-    location: "미륵사지 주차장 (사찰 정문 앞)",
+    location: "금정구청 인근 공영주차장 (무료 주차 가능)",
     fee: "무료 (방문객용)",
-    capacity: "승용차 100대, 버스 20대 주차 가능"
+    capacity: "승용차 50대, 버스 10대 주차 가능"
   },
   hours: [
-    { day: "화요일 - 일요일", time: "09:00 - 17:00 (3월 - 10월)" },
-    { day: "화요일 - 일요일", time: "09:00 - 16:30 (11월 - 2월)" },
-    { day: "월요일", time: "휴관" }
+    { day: "매일", time: "08:00 - 18:00" },
+    { day: "연중무휴", time: "" }
   ],
   contact: {
-    phone: "063-123-4567",
-    email: "info@mireuksa.org"
+    phone: "051-987-6543",
+    email: "info@geumjeongtemple.kr"
   },
-  mapImageUrl: "https://source.unsplash.com/random/900×700/?map"
+  mapImageUrl: "https://source.unsplash.com/random/900x700/?busan,geumjeong"
 };
 
-// Helper components
 const InfoCard: React.FC<{ icon: React.ElementType; title: string; children: React.ReactNode }> = ({ 
   icon: Icon, title, children 
 }) => {
@@ -99,10 +101,10 @@ const LocationSection = () => {
           {/* Map */}
           <div className="reveal reveal-delay-1 lg:order-1 order-2">
             <div ref={mapRef} className="relative aspect-square md:aspect-auto md:h-full rounded-xl overflow-hidden shadow-lg">
-              {/* This would be replaced with an actual map API integration */}
+              {/* 실제 지도 API로 대체 가능 */}
               <img 
                 src={locationData.mapImageUrl} 
-                alt="미륵사 위치" 
+                alt="금정구 미륵사 위치" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-temple-dark/70 to-transparent p-4">

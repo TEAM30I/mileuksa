@@ -25,55 +25,62 @@ export const Navbar = ({ forceRender = false }: NavbarProps) => {
   const timerRef = useRef<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // 부모 영역에서 onMouseLeave 처리 (300ms 딜레이)
-  const handleMouseLeave = () => {
+  // 부모 wrapper 전체에 onMouseLeave/Enter 적용
+  const handleWrapperMouseLeave = () => {
     timerRef.current = window.setTimeout(() => {
       setActiveBanner(null);
     }, 300);
   };
 
-  const handleMouseEnter = (index: number) => {
+  const handleWrapperMouseEnter = () => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
+  };
+
+  // 개별 메뉴에 대한 onMouseEnter
+  const handleMouseEnter = (index: number) => {
     setActiveBanner(index);
+  };
+
+  // 드롭다운 내부에 마우스가 들어왔을 때 타이머 취소 함수
+  const cancelClose = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {!isMobile && (
-        <div 
+        <div
           className="bg-orange-500 transition-colors duration-300 py-3"
-          onMouseLeave={handleMouseLeave}
-          onMouseEnter={() => {
-            if (timerRef.current) {
-              clearTimeout(timerRef.current);
-              timerRef.current = null;
-            }
-          }}
+          onMouseEnter={handleWrapperMouseEnter}
+          onMouseLeave={handleWrapperMouseLeave}
         >
           <div className="container mx-auto px-4 flex items-center justify-between">
             {/* 좌측: 로고 및 외부 링크 */}
             <div className="flex items-center space-x-4">
-              <div 
+              <div
                 onClick={() => navigate('/')}
                 className="text-white font-bold text-4xl md:text-5xl cursor-pointer"
               >
                 미륵사
               </div>
-              <a 
-                href="https://www.koreanbuddhism.net/" 
-                target="_blank" 
+              <a
+                href="https://www.koreanbuddhism.net/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-white hover:text-white/80 transition-colors"
               >
                 <span>한국불교조계종</span>
                 <ExternalLink size={16} className="ml-1 font-bold" />
               </a>
-              <a 
-                href="https://www.beomeosa.co.kr/" 
-                target="_blank" 
+              <a
+                href="https://www.beomeosa.co.kr/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-white hover:text-white/80 transition-colors"
               >
@@ -84,14 +91,14 @@ export const Navbar = ({ forceRender = false }: NavbarProps) => {
             {/* 우측: 네비게이션 메뉴 */}
             <ul className="flex items-center justify-center space-x-8">
               {navStructure.map((item, index) => (
-                <li 
+                <li
                   key={item.id}
                   className="relative"
                   onMouseEnter={() => handleMouseEnter(index + 1)}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseLeave={handleWrapperMouseLeave}
                 >
                   {item.path ? (
-                    <Link 
+                    <Link
                       to={item.path}
                       className="text-white font-bold text-lg hover:text-white/80 transition-colors"
                     >
@@ -107,10 +114,14 @@ export const Navbar = ({ forceRender = false }: NavbarProps) => {
             </ul>
           </div>
           {activeBanner !== null && activeBanner > 0 && (
-            <NavbarDropdown activeIndex={activeBanner} onClose={() => setActiveBanner(null)} />
+            <NavbarDropdown
+              activeIndex={activeBanner}
+              onClose={() => setActiveBanner(null)}
+              cancelClose={cancelClose}
+            />
           )}
           {activeBanner !== null && activeBanner > 0 && (
-            <div 
+            <div
               className="fixed inset-0 bg-black/40 z-10"
               style={{ top: '130px' }}
               onClick={() => setActiveBanner(null)}
@@ -123,7 +134,7 @@ export const Navbar = ({ forceRender = false }: NavbarProps) => {
           <div onClick={() => navigate('/')} className="text-white font-bold text-3xl cursor-pointer">
             미륵사
           </div>
-          <button 
+          <button
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             className="text-white"
             aria-label="메뉴 열기"
@@ -136,7 +147,7 @@ export const Navbar = ({ forceRender = false }: NavbarProps) => {
                 {navStructure.map((item) => (
                   <div key={item.id} className="py-2 border-b border-gray-100">
                     {item.path ? (
-                      <Link 
+                      <Link
                         to={item.path}
                         className="block py-2 font-medium text-temple-dark"
                         onClick={() => setMobileMenuOpen(false)}
@@ -151,7 +162,7 @@ export const Navbar = ({ forceRender = false }: NavbarProps) => {
                     {item.subMenu && (
                       <div className="pl-4 pt-1 pb-2 space-y-1">
                         {item.subMenu.map((subItem) => (
-                          <Link 
+                          <Link
                             key={subItem.path}
                             to={subItem.path}
                             className="block py-1 text-sm text-gray-600 hover:text-temple-red"

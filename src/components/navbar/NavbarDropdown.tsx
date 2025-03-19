@@ -5,15 +5,16 @@ import { navStructure } from './navData';
 interface NavbarDropdownProps {
   activeIndex: number;
   onClose: () => void;
+  cancelClose: () => void;
 }
 
-export const NavbarDropdown = ({ activeIndex, onClose }: NavbarDropdownProps) => {
+export const NavbarDropdown = ({ activeIndex, onClose, cancelClose }: NavbarDropdownProps) => {
   const item = navStructure[activeIndex - 1];
   return (
     <div
       className="absolute w-full bg-white backdrop-blur-sm shadow-lg z-30 animate-dropdown-down"
+      onMouseEnter={cancelClose}
       onMouseLeave={onClose}
-      onMouseEnter={() => {}}
     >
       <div className="container mx-auto px-4 py-10">
         <div className="grid grid-cols-6 gap-0">
@@ -37,9 +38,7 @@ export const NavbarDropdown = ({ activeIndex, onClose }: NavbarDropdownProps) =>
                     className="p-3 hover:underline transition-colors"
                     onClick={onClose}
                   >
-                    <span className="block">
-                      {subItem.label}
-                    </span>
+                    <span className="block">{subItem.label}</span>
                   </Link>
                 ))
               ) : (
