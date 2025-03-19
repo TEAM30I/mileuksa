@@ -13,6 +13,7 @@ const IntroSection = () => {
   const [activeBanner, setActiveBanner] = useState<number | null>(null);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const bannerMenus = [
     {
@@ -66,7 +67,15 @@ const IntroSection = () => {
     e.preventDefault();
     console.log('Searching for:', searchQuery);
     // Implementation for search functionality
+    setShowSearch(false);
   };
+
+  // Focus input when search is shown
+  useEffect(() => {
+    if (showSearch && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [showSearch]);
 
   return (
     <section 
@@ -96,9 +105,10 @@ const IntroSection = () => {
           onMouseLeave={() => setActiveBanner(null)}
         >
           <div className="container mx-auto px-4 flex items-center justify-between">
-            <div className="flex-1">
-              <h1 className="text-center text-white font-bold text-3xl">미륵사</h1>
-              <p className="text-center text-white/80 text-sm">대한불교조계종 제14교구 범어사의 말사</p>
+            <div className="flex-1"></div>
+            <div className="flex-1 text-center">
+              <h1 className="text-white font-bold text-3xl">미륵사</h1>
+              <p className="text-white/80 text-sm">대한불교조계종 제14교구 범어사의 말사</p>
             </div>
             <div className="flex-1 flex items-center justify-end space-x-4">
               <a 
@@ -120,29 +130,30 @@ const IntroSection = () => {
                 <ExternalLink size={16} className="ml-1" />
               </a>
               <div className="relative">
-                <button 
-                  onClick={() => setShowSearch(!showSearch)}
-                  className="text-white hover:text-white/80"
-                >
-                  <Search size={20} />
-                </button>
-                {showSearch && (
+                {!showSearch ? (
+                  <button 
+                    onClick={() => setShowSearch(true)}
+                    className="text-white hover:text-white/80"
+                  >
+                    <Search size={20} />
+                  </button>
+                ) : (
                   <form 
-                    className="absolute top-full right-0 mt-2 bg-white p-2 rounded shadow-md"
+                    className="flex items-center"
                     onSubmit={handleSearch}
                   >
-                    <div className="flex items-center border-b border-gray-300">
-                      <input 
-                        type="text" 
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="검색어 입력..."
-                        className="outline-none px-2 py-1 w-40"
-                      />
-                      <button type="submit" className="text-gray-500">
-                        <Search size={16} />
-                      </button>
-                    </div>
+                    <input 
+                      ref={searchInputRef}
+                      type="text" 
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="검색어 입력..."
+                      className="outline-none bg-transparent border-b border-white text-white placeholder-white/70 px-2 py-1 w-40"
+                      onBlur={() => !searchQuery && setShowSearch(false)}
+                    />
+                    <button type="submit" className="text-white ml-1">
+                      <Search size={16} />
+                    </button>
                   </form>
                 )}
               </div>

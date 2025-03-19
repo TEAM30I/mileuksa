@@ -16,16 +16,26 @@ export const DesktopNavMenu = ({
   showAllMenus, 
   setShowAllMenus 
 }: DesktopNavMenuProps) => {
+  const handleMouseEnter = () => {
+    setShowAllMenus(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowAllMenus(false);
+  };
+
   return (
     <>
       <nav className="hidden md:flex items-center space-x-4">
-        <ul className="flex space-x-2">
+        <ul 
+          className="flex space-x-2"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           {navStructure.map((item) => (
             <li 
               key={item.id} 
               className="group relative"
-              onMouseEnter={() => setShowAllMenus(true)}
-              onMouseLeave={() => setShowAllMenus(false)}
             >
               {item.path ? (
                 <Link 

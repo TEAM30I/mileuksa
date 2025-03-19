@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 import { NavbarLogo } from './NavbarLogo';
 import { DesktopNavMenu } from './DesktopNavMenu';
 import { MobileNavMenu } from './MobileNavMenu';
-import { navStructure } from './navData';
 
 export const Navbar = () => {
   const [activeSection, setActiveSection] = useState('intro');
@@ -16,6 +15,7 @@ export const Navbar = () => {
   const [showAllMenus, setShowAllMenus] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,30 +25,38 @@ export const Navbar = () => {
         setScrolled(false);
       }
 
-      const sections = ['intro', 'events', 'location', 'faq'].map(id => document.getElementById(id));
-      const scrollPosition = window.scrollY + 200;
+      // Only track sections on homepage
+      if (isHomePage) {
+        const sections = ['intro', 'events', 'location', 'faq'].map(id => document.getElementById(id));
+        const scrollPosition = window.scrollY + 200;
 
-      sections.forEach((section) => {
-        if (!section) return;
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(section.id);
-        }
-      });
+        sections.forEach((section) => {
+          if (!section) return;
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            setActiveSection(section.id);
+          }
+        });
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     
-    // 페이지 이동 시 스크롤 최상단으로 이동
+    // Reset scroll position when navigating to a new page
     window.scrollTo(0, 0);
+    
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+  }, [location.pathname, isHomePage]);
+
+  // Force navbar to be solid on non-homepage routes
+  const navbarBackground = !isHomePage || scrolled ? "bg-white shadow-md" : scrolled ? "bg-white shadow-md" : "bg-white";
 
   return (
     <header className={cn(
       "fixed top-0 w-full z-50 transition-all duration-500",
-      scrolled ? "bg-white shadow-md py-2" : "bg-white py-4"
+      navbarBackground,
+      scrolled ? "py-2" : "py-4"
     )}>
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
