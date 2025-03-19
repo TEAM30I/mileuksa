@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import Navbar from './Navbar';
+import Navbar from './navbar';
 import Footer from './Footer';
 
 interface PageLayoutProps {
