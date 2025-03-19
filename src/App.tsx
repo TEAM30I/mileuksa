@@ -28,7 +28,7 @@ import Resources from "./pages/notice/Resources";
 
 // Import location page
 import Location from "./pages/Location";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 
 const queryClient = new QueryClient();
 
