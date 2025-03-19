@@ -1,99 +1,176 @@
-
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { NavbarLogo } from './NavbarLogo';
-import { DesktopNavMenu } from './DesktopNavMenu';
-import { MobileNavMenu } from './MobileNavMenu';
+import { navStructure } from './navData';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { NavbarDropdown } from './NavbarDropdown';
 
-export const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('intro');
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showAllMenus, setShowAllMenus] = useState(false);
+interface NavbarProps {
+  forceRender?: boolean;
+}
+
+export const Navbar = ({ forceRender = false }: NavbarProps) => {
+  const navigate = useNavigate();
   const location = useLocation();
-  const isMobile = useIsMobile();
   const isHomePage = location.pathname === '/';
+  const isMobile = useIsMobile();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+  // 홈에서는 forceRender가 true가 아니면 Navbar를 렌더링하지 않음
+  if (!forceRender && isHomePage) {
+    return null;
+  }
 
-      // Only track sections on homepage
-      if (isHomePage) {
-        const sections = ['intro', 'events', 'location', 'faq'].map(id => document.getElementById(id));
-        const scrollPosition = window.scrollY + 200;
+  const [activeBanner, setActiveBanner] = useState<number | null>(null);
+  const timerRef = useRef<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-        sections.forEach((section) => {
-          if (!section) return;
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            setActiveSection(section.id);
-          }
-        });
-      }
-    };
+  // 부모 영역에서 onMouseLeave 처리 (300ms 딜레이)
+  const handleMouseLeave = () => {
+    timerRef.current = window.setTimeout(() => {
+      setActiveBanner(null);
+    }, 300);
+  };
 
-    window.addEventListener('scroll', handleScroll);
-    
-    // Reset scroll position when navigating to a new page
-    window.scrollTo(0, 0);
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname, isHomePage]);
-
-  // Force navbar to be solid on non-homepage routes
-  const navbarBackground = !isHomePage || scrolled ? "bg-white shadow-md" : scrolled ? "bg-white shadow-md" : "bg-white";
+  const handleMouseEnter = (index: number) => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    setActiveBanner(index);
+  };
 
   return (
-    <header className={cn(
-      "fixed top-0 w-full z-50 transition-all duration-500",
-      navbarBackground,
-      scrolled ? "py-2" : "py-4"
-    )}>
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        {/* Logo */}
-        <NavbarLogo />
-
-        {/* Desktop Nav */}
-        {!isMobile && (
-          <DesktopNavMenu 
-            activeSection={activeSection} 
-            showAllMenus={showAllMenus}
-            setShowAllMenus={setShowAllMenus}
-          />
-        )}
-
-        {/* Mobile menu button */}
-        {isMobile && (
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {!isMobile && (
+        <div 
+          className="bg-orange-500 transition-colors duration-300 py-3"
+          onMouseLeave={handleMouseLeave}
+          onMouseEnter={() => {
+            if (timerRef.current) {
+              clearTimeout(timerRef.current);
+              timerRef.current = null;
+            }
+          }}
+        >
+          <div className="container mx-auto px-4 flex items-center justify-between">
+            {/* 좌측: 로고 및 외부 링크 */}
+            <div className="flex items-center space-x-4">
+              <div 
+                onClick={() => navigate('/')}
+                className="text-white font-bold text-4xl md:text-5xl cursor-pointer"
+              >
+                미륵사
+              </div>
+              <a 
+                href="https://www.koreanbuddhism.net/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center text-white hover:text-white/80 transition-colors"
+              >
+                <span>한국불교조계종</span>
+                <ExternalLink size={16} className="ml-1 font-bold" />
+              </a>
+              <a 
+                href="https://www.beomeosa.co.kr/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center text-white hover:text-white/80 transition-colors"
+              >
+                <span>범어사</span>
+                <ExternalLink size={16} className="ml-1 font-bold" />
+              </a>
+            </div>
+            {/* 우측: 네비게이션 메뉴 */}
+            <ul className="flex items-center justify-center space-x-8">
+              {navStructure.map((item, index) => (
+                <li 
+                  key={item.id}
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter(index + 1)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  {item.path ? (
+                    <Link 
+                      to={item.path}
+                      className="text-white font-bold text-lg hover:text-white/80 transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span className="text-white font-bold text-lg cursor-pointer">
+                      {item.label}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {activeBanner !== null && activeBanner > 0 && (
+            <NavbarDropdown activeIndex={activeBanner} onClose={() => setActiveBanner(null)} />
+          )}
+          {activeBanner !== null && activeBanner > 0 && (
+            <div 
+              className="fixed inset-0 bg-black/40 z-10"
+              style={{ top: '130px' }}
+              onClick={() => setActiveBanner(null)}
+            />
+          )}
+        </div>
+      )}
+      {isMobile && (
+        <div className="bg-orange-500 flex items-center justify-between p-4 fixed top-0 left-0 right-0 z-50">
+          <div onClick={() => navigate('/')} className="text-white font-bold text-3xl cursor-pointer">
+            미륵사
+          </div>
           <button 
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "닫기" : "메뉴 열기"}
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="text-white"
+            aria-label="메뉴 열기"
           >
-            {mobileMenuOpen ? (
-              <X className="text-temple-dark" size={24} />
-            ) : (
-              <Menu className="text-temple-dark" size={24} />
-            )}
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-        )}
-      </div>
-
-      {/* Mobile menu */}
-      {isMobile && mobileMenuOpen && (
-        <MobileNavMenu 
-          activeSection={activeSection} 
-          setMobileMenuOpen={setMobileMenuOpen} 
-        />
+          {mobileMenuOpen && (
+            <div className="absolute top-full left-0 w-full bg-white shadow-lg border-t border-temple-beige animate-dropdown-down overflow-y-auto max-h-[80vh]">
+              <nav className="container mx-auto px-4 py-4 flex flex-col">
+                {navStructure.map((item) => (
+                  <div key={item.id} className="py-2 border-b border-gray-100">
+                    {item.path ? (
+                      <Link 
+                        to={item.path}
+                        className="block py-2 font-medium text-temple-dark"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <div className="py-2 font-medium text-temple-dark">
+                        {item.label}
+                      </div>
+                    )}
+                    {item.subMenu && (
+                      <div className="pl-4 pt-1 pb-2 space-y-1">
+                        {item.subMenu.map((subItem) => (
+                          <Link 
+                            key={subItem.path}
+                            to={subItem.path}
+                            className="block py-1 text-sm text-gray-600 hover:text-temple-red"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+            </div>
+          )}
+        </div>
       )}
     </header>
   );
 };
+
+export default Navbar;

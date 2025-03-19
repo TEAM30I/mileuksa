@@ -1,7 +1,8 @@
-
 import React, { useEffect, useRef } from 'react';
-import Navbar from './navbar';
+import { useLocation } from 'react-router-dom';
 import Footer from './Footer';
+import IntroSection from '@/components/IntroSection';
+import Navbar from './navbar';
 
 interface PageLayoutProps {
   title: string;
@@ -14,15 +15,14 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   title, 
   subtitle, 
   children,
-  backgroundImage = "/temple-bg.jpg" // Default background
+  backgroundImage = "/temple-bg.jpg"
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
-  // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
-    
-    // Animation on scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -33,15 +33,12 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       },
       { threshold: 0.1 }
     );
-
     if (contentRef.current) {
-      // Get all elements with reveal class
       const elements = contentRef.current.querySelectorAll('.reveal:not(.active)');
       elements.forEach((el) => {
         observer.observe(el);
       });
     }
-
     return () => {
       if (contentRef.current) {
         const elements = contentRef.current.querySelectorAll('.reveal');
@@ -54,7 +51,12 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      {/* 홈에서는 IntroSection을 사용, 세부 페이지에서는 수정된 Navbar를 사용 */}
+      {isHomePage ? (
+        <IntroSection />
+      ) : (
+        <Navbar />
+      )}
       
       <div 
         className="pt-16 bg-cover bg-center bg-no-repeat"

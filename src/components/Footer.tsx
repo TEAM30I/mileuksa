@@ -69,11 +69,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin className="mr-2 text-temple-red" size={18} />
-                <span>전라북도 익산시 금마면 미륵사지로 362</span>
+                <span>부산광역시 금정구 북문로 126</span>
               </li>
               <li className="flex items-center">
                 <Phone className="mr-2 text-temple-red" size={18} />
-                <span>063-123-4567</span>
+                <span>051-508-4707</span>
               </li>
               <li className="flex items-center">
                 <Mail className="mr-2 text-temple-red" size={18} />
@@ -116,7 +116,7 @@ const Footer = () => {
       {/* Copyright */}
       <div className="border-t border-temple-beige/10 py-6">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">© 2023 미륵사. All rights reserved.</p>
+          <p className="text-sm">© 2025 TEAM301. All rights reserved.</p>
           <div className="flex space-x-4 mt-3 md:mt-0 text-sm">
             <a href="#" className="hover:text-white transition-colors">이용약관</a>
             <a href="#" className="hover:text-white transition-colors">개인정보처리방침</a>
