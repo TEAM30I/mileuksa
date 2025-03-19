@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -103,7 +102,15 @@ export default {
 				'glow': {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.6' }
-				}
+				},
+				'dropdown-down': {
+					'0%': { opacity: '0', transform: 'translateY(-10px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
+				},
+				'dropdown-up': {
+					'0%': { opacity: '1', transform: 'translateY(0)' },
+					'100%': { opacity: '0', transform: 'translateY(-10px)' }
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -114,7 +121,9 @@ export default {
 				'zoom-in': 'zoom-in 0.7s ease-out',
 				'slide-up': 'slide-up 0.7s ease-out',
 				'float': 'float 6s ease-in-out infinite',
-				'glow': 'glow 4s ease-in-out infinite'
+				'glow': 'glow 4s ease-in-out infinite',
+				'dropdown-down': 'dropdown-down 0.3s ease-out forwards',
+				'dropdown-up': 'dropdown-up 0.3s ease-out forwards',
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],

@@ -60,7 +60,6 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('intro');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // hoveredMenu 상태를 단일 불리언 값으로 변경 - 모든 메뉴를 한번에 보여주기 위함
   const [showAllMenus, setShowAllMenus] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
@@ -118,14 +117,14 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <nav 
           className="hidden md:flex items-center space-x-4"
-          onMouseEnter={() => setShowAllMenus(true)}
-          onMouseLeave={() => setShowAllMenus(false)}
         >
           <ul className="flex space-x-2">
             {navStructure.map((item) => (
               <li 
                 key={item.id} 
                 className="group relative"
+                onMouseEnter={() => setShowAllMenus(true)}
+                onMouseLeave={() => setShowAllMenus(false)}
               >
                 {item.path ? (
                   <Link 
@@ -167,9 +166,12 @@ const Navbar = () => {
       </div>
 
       {/* 통합 드롭다운(데스크탑) */}
-      {showAllMenus && !isMobile && (
+      {!isMobile && (
         <div 
-          className="absolute top-full left-0 w-full bg-white shadow-lg border-t border-temple-beige animate-slide-up"
+          className={cn(
+            "absolute top-full left-0 w-full bg-white shadow-lg border-t border-temple-beige",
+            showAllMenus ? "animate-dropdown-down opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none animate-dropdown-up"
+          )}
           onMouseEnter={() => setShowAllMenus(true)}
           onMouseLeave={() => setShowAllMenus(false)}
         >
@@ -214,7 +216,7 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-temple-beige animate-slide-up overflow-y-auto max-h-[80vh]">
+        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg border-t border-temple-beige animate-dropdown-down overflow-y-auto max-h-[80vh]">
           <nav className="container mx-auto px-4 py-4 flex flex-col">
             {navStructure.map((item) => (
               <div key={item.id} className="py-2 border-b border-gray-100">
