@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -31,6 +32,9 @@ export default {
 					'gold': '#D4AF37',
 					'dark': '#1A0F0C',
 					'light': '#FAF6F2'
+				},
+				orange: {
+					'500': '#F97316',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',

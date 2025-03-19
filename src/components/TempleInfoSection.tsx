@@ -1,6 +1,8 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Camera, User } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 interface TempleInfoProps {
   title: string;
@@ -70,7 +72,6 @@ const TempleInfo: React.FC<TempleInfoProps> = ({ title, description, imageSrc })
   );
 };
 
-// Photo Gallery Item
 interface GalleryItemProps {
   imageSrc: string;
   caption: string;
@@ -91,7 +92,6 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ imageSrc, caption }) => {
   );
 };
 
-// Monk Info Component
 interface MonkInfoProps {
   name: string;
   position: string;
@@ -175,10 +175,9 @@ const MonkInfo: React.FC<MonkInfoProps> = ({
   );
 };
 
-// Main Component
 const TempleInfoSection = () => {
   const galleryRef = useRef<HTMLDivElement>(null);
-  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 6; // Total number of gallery items
   const itemsPerSlide = 3; // Number of items visible per slide
   
@@ -204,6 +203,12 @@ const TempleInfoSection = () => {
   return (
     <div className="bg-white">
       {/* Temple Background Information */}
+      <div className="w-full py-10">
+        <div className="container mx-auto">
+          <Separator className="h-1 bg-temple-brown/20" />
+        </div>
+      </div>
+      
       <TempleInfo 
         title="천년의 역사를 간직한 미륵사"
         description={[
@@ -214,11 +219,18 @@ const TempleInfoSection = () => {
         imageSrc="https://source.unsplash.com/random/900×700/?korean,temple"
       />
       
+      <div className="w-full py-10">
+        <div className="container mx-auto">
+          <Separator className="h-1 bg-temple-brown/20" />
+        </div>
+      </div>
+      
       {/* Temple Photos Gallery */}
       <div ref={galleryRef} className="py-16 md:py-24 bg-temple-beige/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <span className="inline-block bg-temple-red/10 px-4 py-1 rounded-full mb-4">
+            <span className="inline-block bg-temple-red/10 px-4 py-1 rounded-full mb-4 flex items-center justify-center max-w-xs mx-auto">
+              <Camera size={18} className="mr-2 text-temple-red" />
               <span className="text-temple-red text-sm font-medium">미륵사 갤러리</span>
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-temple-dark">사찰의 사계절</h2>
@@ -259,7 +271,21 @@ const TempleInfoSection = () => {
         </div>
       </div>
       
+      <div className="w-full py-10">
+        <div className="container mx-auto">
+          <Separator className="h-1 bg-temple-brown/20" />
+        </div>
+      </div>
+      
       {/* Monk Information */}
+      <div className="container mx-auto px-4 text-center mb-12 pt-10">
+        <span className="inline-block bg-temple-red/10 px-4 py-1 rounded-full mb-4 flex items-center justify-center max-w-xs mx-auto">
+          <User size={18} className="mr-2 text-temple-red" />
+          <span className="text-temple-red text-sm font-medium">주지스님 소개</span>
+        </span>
+        <h2 className="text-3xl md:text-4xl font-bold text-temple-dark">미륵사 주지스님</h2>
+      </div>
+      
       <MonkInfo 
         name="법현 스님"
         position="미륵사 주지"
@@ -269,8 +295,16 @@ const TempleInfoSection = () => {
         quote="마음의 평화를 찾는 길은 자신 안에 있습니다. 명상과 자기성찰을 통해 내면의 지혜를 발견하세요."
         imageSrc="https://source.unsplash.com/random/900×700/?buddhist,monk"
       />
+      
+      <div className="w-full py-10">
+        <div className="container mx-auto">
+          <Separator className="h-1 bg-temple-brown/20" />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default TempleInfoSection;
+
+

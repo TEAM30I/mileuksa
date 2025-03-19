@@ -1,37 +1,27 @@
 
 import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
 import IntroSection from '../components/IntroSection';
 import TempleInfoSection from '../components/TempleInfoSection';
 import EventsSection from '../components/EventsSection';
 import LocationSection from '../components/LocationSection';
 import FAQSection from '../components/FAQSection';
 import Footer from '../components/Footer';
-import { DonationPopup } from '../components/DonationPopup';
 import { UpcomingEventsPopup } from '../components/UpcomingEventsPopup';
-import { WeeklyEventsList } from '../components/WeeklyEventsList';
+import DonationSection from '../components/DonationSection';
 
 const Index = () => {
-  const [showDonationPopup, setShowDonationPopup] = useState(false);
   const [showEventsPopup, setShowEventsPopup] = useState(false);
-  const [donationPopupClosed, setDonationPopupClosed] = useState(false);
+  const [eventsPopupClosed, setEventsPopupClosed] = useState(false);
   
   useEffect(() => {
-    // Show donation popup after 2 seconds if not manually closed
-    if (!donationPopupClosed) {
-      const donationTimer = setTimeout(() => {
-        setShowDonationPopup(true);
+    // Show events popup after 2 seconds if not manually closed
+    if (!eventsPopupClosed) {
+      const eventsTimer = setTimeout(() => {
+        setShowEventsPopup(true);
       }, 2000);
       
-      return () => clearTimeout(donationTimer);
+      return () => clearTimeout(eventsTimer);
     }
-    
-    // Show events popup after 5 seconds if donation popup is closed
-    const eventsTimer = setTimeout(() => {
-      if (!showDonationPopup && !donationPopupClosed) {
-        setShowEventsPopup(true);
-      }
-    }, 5000);
     
     // Revealing elements on scroll
     const revealOnScroll = () => {
@@ -54,20 +44,16 @@ const Index = () => {
     
     return () => {
       window.removeEventListener('scroll', revealOnScroll);
-      clearTimeout(eventsTimer);
     };
-  }, [showDonationPopup, donationPopupClosed]);
+  }, [eventsPopupClosed]);
 
-  const handleDonationPopupClose = () => {
-    setShowDonationPopup(false);
-    setDonationPopupClosed(true); // Mark as manually closed
+  const handleEventsPopupClose = () => {
+    setShowEventsPopup(false);
+    setEventsPopupClosed(true); // Mark as manually closed
   };
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navbar */}
-      <Navbar />
-      
       {/* Main Content */}
       <main>
         {/* Hero/Intro Section */}
@@ -75,6 +61,9 @@ const Index = () => {
         
         {/* Temple Info Section (with gallery and monk info) */}
         <TempleInfoSection />
+        
+        {/* Donation Section */}
+        <DonationSection />
         
         {/* Events/Program Section */}
         <EventsSection />
@@ -89,20 +78,10 @@ const Index = () => {
       {/* Footer */}
       <Footer />
       
-      {/* Popups */}
-      <DonationPopup 
-        open={showDonationPopup} 
-        onOpenChange={handleDonationPopupClose}
-        onViewEvents={() => {
-          setShowDonationPopup(false);
-          setDonationPopupClosed(true);
-          setShowEventsPopup(true);
-        }}
-      />
-      
+      {/* Events Popup */}
       <UpcomingEventsPopup
         open={showEventsPopup}
-        onOpenChange={setShowEventsPopup}
+        onOpenChange={handleEventsPopupClose}
       />
     </div>
   );

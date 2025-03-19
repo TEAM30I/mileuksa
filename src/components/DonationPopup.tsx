@@ -7,10 +7,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogClose
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Heart, Calendar, X } from "lucide-react";
+import { Heart, Calendar } from "lucide-react";
 
 interface DonationPopupProps {
   open: boolean;
@@ -30,7 +29,6 @@ export function DonationPopup({ open, onOpenChange, onViewEvents }: DonationPopu
           <DialogDescription>
             미륵사 불사와 자비행에 동참해 주세요
           </DialogDescription>
-          {/* We're removing the duplicate DialogClose button here, as DialogContent already includes one */}
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="bg-temple-beige/20 p-4 rounded-lg">

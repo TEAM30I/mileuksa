@@ -1,9 +1,9 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Donation from "./pages/Donation";
@@ -28,6 +28,7 @@ import Resources from "./pages/notice/Resources";
 
 // Import location page
 import Location from "./pages/Location";
+import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -37,33 +38,32 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Index />} />
           
-          {/* Temple Introduction Routes */}
-          <Route path="/intro/about" element={<TempleAbout />} />
-          <Route path="/intro/origin" element={<TempleOrigin />} />
-          <Route path="/intro/history" element={<TempleHistory />} />
-          <Route path="/intro/facilities" element={<TempleFacilities />} />
-          <Route path="/intro/message" element={<AbbotMessage />} />
-          <Route path="/intro/monks" element={<TempleMonks />} />
+          {/* Temple Introduction Routes - Include Navbar for inner pages */}
+          <Route path="/intro/about" element={<><Navbar /><TempleAbout /></>} />
+          <Route path="/intro/origin" element={<><Navbar /><TempleOrigin /></>} />
+          <Route path="/intro/history" element={<><Navbar /><TempleHistory /></>} />
+          <Route path="/intro/facilities" element={<><Navbar /><TempleFacilities /></>} />
+          <Route path="/intro/message" element={<><Navbar /><AbbotMessage /></>} />
+          <Route path="/intro/monks" element={<><Navbar /><TempleMonks /></>} />
           
           {/* Events Routes */}
-          <Route path="/events/calendar" element={<EventsCalendar />} />
-          <Route path="/events/dharma-talks" element={<DharmaTalks />} />
+          <Route path="/events/calendar" element={<><Navbar /><EventsCalendar /></>} />
+          <Route path="/events/dharma-talks" element={<><Navbar /><DharmaTalks /></>} />
           
           {/* Donation Route */}
-          <Route path="/donation" element={<Donation />} />
+          <Route path="/donation" element={<><Navbar /><Donation /></>} />
           
           {/* Location Route */}
-          <Route path="/location" element={<Location />} />
+          <Route path="/location" element={<><Navbar /><Location /></>} />
           
           {/* Notice Routes */}
-          <Route path="/notice/announcements" element={<Announcements />} />
-          <Route path="/notice/faq" element={<FAQ />} />
-          <Route path="/notice/gallery" element={<Gallery />} />
-          <Route path="/notice/resources" element={<Resources />} />
+          <Route path="/notice/announcements" element={<><Navbar /><Announcements /></>} />
+          <Route path="/notice/faq" element={<><Navbar /><FAQ /></>} />
+          <Route path="/notice/gallery" element={<><Navbar /><Gallery /></>} />
+          <Route path="/notice/resources" element={<><Navbar /><Resources /></>} />
           
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
