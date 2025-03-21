@@ -6,7 +6,7 @@ import { Heart, CreditCard, Wallet, HandCoins } from 'lucide-react';
 const Donation = () => {
   return (
     <PageLayout 
-      title="시주 안내" 
+      title="보시 안내" 
       subtitle="미륵사의 발전과 불교 문화의 계승을 위한 불사에 동참하여 공덕을 쌓으시길 바랍니다."
     >
       <div className="container mx-auto px-4">
@@ -20,15 +20,15 @@ const Donation = () => {
             </div>
             <div className="space-y-4">
               <div className="flex justify-between items-center p-3 bg-temple-beige/10 rounded-lg">
-                <span className="font-medium">산신각 칠성각 설판시주</span>
+                <span className="font-medium">산신각 칠성각 설판보시</span>
                 <span className="text-temple-red font-medium">100만원</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-temple-beige/10 rounded-lg">
-                <span className="font-medium">산신각 칠성각 개인시주</span>
+                <span className="font-medium">산신각 칠성각 개인보시</span>
                 <span className="text-temple-red font-medium">10만원</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-temple-beige/10 rounded-lg">
-                <span className="font-medium">산신각 칠성각 가족시주</span>
+                <span className="font-medium">산신각 칠성각 가족보시</span>
                 <span className="text-temple-red font-medium">30만원 (가족4명까지)</span>
               </div>
             </div>
@@ -42,7 +42,7 @@ const Donation = () => {
               <h3 className="text-xl font-semibold ml-4">계좌 안내</h3>
             </div>
             <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-medium text-temple-brown mb-2">시주 계좌 안내</h4>
+              <h4 className="font-medium text-temple-brown mb-2">보시 계좌 안내</h4>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">금융기관</span>

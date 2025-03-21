@@ -38,7 +38,7 @@ const DonationSection = () => {
           <div className="inline-block bg-temple-red/10 px-4 py-1 rounded-full mb-4">
             <span className="text-temple-red text-sm font-medium flex items-center justify-center">
               <Heart size={16} className="mr-2" />
-              시주 안내
+              보시 안내
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-temple-dark">미륵사 불사와 자비행에 동참해 주세요</h2>
@@ -52,17 +52,17 @@ const DonationSection = () => {
             <div className="p-6 space-y-4">
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span>산신각 칠성각 설판시주</span>
+                  <span>산신각 칠성각 설판보시</span>
                   <span className="font-bold text-temple-red">100만원</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
-                  <span>산신각 칠성각 개인시주</span>
+                  <span>산신각 칠성각 개인보시</span>
                   <span className="font-bold text-temple-red">10만원</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
-                  <span>산신각 칠성각 가족시주</span>
+                  <span>산신각 칠성각 가족보시</span>
                   <span className="font-bold text-temple-red">30만원 (가족4명까지)</span>
                 </div>
               </div>
