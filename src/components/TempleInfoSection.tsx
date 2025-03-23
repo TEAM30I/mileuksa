@@ -157,7 +157,7 @@ const MonkInfo: React.FC<MonkInfoProps> = ({
               </div>
               <div className="bg-white p-3 rounded-md shadow-sm">
                 <span className="text-sm text-gray-500">후원계좌</span>
-                <p>{account}</p>
+                <p>502724-02-030671 우체국</p>
               </div>
             </div>
             <div className="space-y-4 mb-8">
