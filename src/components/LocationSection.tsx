@@ -100,7 +100,7 @@ const LocationSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Map */}
           <div className="reveal reveal-delay-1 lg:order-1 order-2">
-            <div ref={mapRef} className="relative aspect-square md:aspect-auto md:h-full rounded-xl overflow-hidden shadow-lg">
+            <div ref={mapRef} className="relative aspect-w-16 aspect-h-9 min-h-[400px] md:h-full rounded-xl overflow-hidden shadow-lg">
               {/* 실제 지도 API로 대체 가능 */}
               <img 
                 src={locationData.mapImageUrl} 
@@ -184,18 +184,12 @@ const LocationSection = () => {
               </InfoCard>
 
               <InfoCard icon={Phone} title="연락처">
-                <div className="space-y-2 text-gray-600">
+                <div className="space-y-2 text-sm text-gray-600">
                   <p>
-                    <span className="font-medium block">전화:</span>
-                    <a href={`tel:${locationData.contact.phone}`} className="hover:text-temple-red">
-                      {locationData.contact.phone}
-                    </a>
+                    <span className="font-medium">전화:</span> {locationData.contact.phone}
                   </p>
                   <p>
-                    <span className="font-medium block">이메일:</span>
-                    <a href={`mailto:${locationData.contact.email}`} className="hover:text-temple-red">
-                      {locationData.contact.email}
-                    </a>
+                    <span className="font-medium">이메일:</span> {locationData.contact.email}
                   </p>
                 </div>
               </InfoCard>

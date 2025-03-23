@@ -122,7 +122,7 @@ const DonationSection = () => {
           <Button asChild size="lg" className="bg-temple-red hover:bg-temple-red/90">
             <Link to="/donation">
               <Heart className="mr-2" size={18} />
-              자세한 시주 안내 보기
+              자세한 보시 안내 보기
             </Link>
           </Button>
         </div>

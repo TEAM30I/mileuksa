@@ -27,15 +27,6 @@ const events: EventType[] = [
     description: "매월 음력 초하루에 진행되는 기도와 법회입니다."
   },
   {
-    id: 2,
-    title: "여름 템플스테이",
-    date: new Date(2023, 6, 20),
-    time: "금요일 14:00 - 일요일 12:00",
-    location: "템플스테이관",
-    category: "템플스테이",
-    description: "사찰의 일상을 경험하고 명상과 불교 문화를 체험하는 2박 3일 프로그램입니다."
-  },
-  {
     id: 3,
     title: "백중기도 입재식",
     date: new Date(2023, 6, 5),

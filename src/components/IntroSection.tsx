@@ -102,7 +102,7 @@ const IntroSection = () => {
             <div
               className={cn(
                 "transition-colors duration-300 py-5",
-                activeBanner !== null ? "bg-orange-500" : "bg-transparent"
+                activeBanner !== null ? "bg-[#D7772D]" : "bg-transparent"
               )}
               onMouseEnter={() => handleMouseEnter(0)}
               onMouseLeave={handleMouseLeave}
@@ -171,7 +171,7 @@ const IntroSection = () => {
             <div
               className={cn(
                 "transition-colors duration-300 py-3",
-                activeBanner !== null ? "bg-orange-500" : "bg-transparent"
+                activeBanner !== null ? "bg-[#D7772D]" : "bg-transparent"
               )}
             >
               <div className="container mx-auto px-4">

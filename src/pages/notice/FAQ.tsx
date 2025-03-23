@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PageLayout from '../../components/PageLayout';
 import {
@@ -54,7 +53,11 @@ const FAQ = () => {
         <div className="max-w-4xl mx-auto">
           {/* FAQ Accordion */}
           <div className="mb-16 reveal">
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion 
+              type="multiple" 
+              defaultValue={faqItems.map((_, index) => `item-${index}`)} 
+              className="w-full"
+            >
               {faqItems.map((item, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-200">
                   <AccordionTrigger className="text-left font-medium py-4 hover:text-temple-red">
@@ -127,28 +130,12 @@ const FAQ = () => {
             <h3 className="text-xl font-semibold text-temple-brown mb-4">
               문의 전 확인해주세요
             </h3>
-            <div className="space-y-4 text-gray-600">
-              <p>
-                미륵사에 문의하시기 전에 다음 사항을 확인해주시면 더욱 빠르고 정확한 답변을 받으실 수 있습니다:
-              </p>
-              <ul className="list-disc pl-5 space-y-2">
-                <li>
-                  홈페이지의 공지사항과 FAQ를 먼저 확인해주세요.
-                </li>
-                <li>
-                  문의 내용에 대한 구체적인 정보를 준비해주세요. (날짜, 시간, 인원수 등)
-                </li>
-                <li>
-                  템플스테이 문의는 최소 1주일 전에 해주시는 것이 좋습니다.
-                </li>
-                <li>
-                  단체 방문은 최소 2주 전에 예약해주시기 바랍니다.
-                </li>
-                <li>
-                  긴급한 문의는 전화로 연락해주시는 것이 가장 빠릅니다.
-                </li>
-              </ul>
-            </div>
+            <ul className="list-disc pl-5 space-y-2 text-gray-600">
+              <li>홈페이지의 공지사항과 FAQ를 먼저 확인해주세요.</li>
+              <li>문의 내용에 대한 구체적인 정보를 준비해주세요.</li>
+              <li>템플스테이 문의는 최소 1주일 전에 해주세요.</li>
+              <li>긴급한 문의는 전화로 연락해 주세요.</li>
+            </ul>
           </div>
         </div>
       </div>

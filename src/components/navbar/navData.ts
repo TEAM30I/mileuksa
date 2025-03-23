@@ -23,7 +23,7 @@ export const navStructure = [
   },
   { 
     id: 'donation', 
-    label: '시주',
+    label: '보시',
     subscription: "불사의 길에 함께하는 소중한 나눔, 당신의 정성이 모입니다.",
     path: '/donation'
   },
